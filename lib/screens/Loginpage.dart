@@ -48,7 +48,7 @@ class  LoginBageState extends State<LoginBage> {
                       ),
                       validator: (value){
                         bool emailValid =RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-?/=?/{}][{}]{|}+").hasMatch(value!);
-                        if(value!.isEmpty){
+                        if(value.isEmpty){
                           return 'Please enter your Email';
                         }
                         
