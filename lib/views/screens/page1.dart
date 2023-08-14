@@ -26,7 +26,7 @@ class _Page1State extends State<Page1>{
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Page1"),
+      child: Text("Page1 /n $email" ),
     );
   }
 

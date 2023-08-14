@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/page1.dart';
-import 'package:flutter_application_1/screens/page2.dart';
+import 'package:flutter_application_1/views/screens/page1.dart';
+import 'package:flutter_application_1/views/screens/page2.dart';
 
 
 class HomeScreen extends StatefulWidget {
