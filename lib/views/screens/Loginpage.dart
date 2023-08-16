@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart'; 
 import 'package:flutter_application_1/views/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,7 @@ class  LoginBageState extends State<LoginBage> {
  
   final _loginbage =GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
-  final Passcontoller = TextEditingController();
+  final Passwordcontoller = TextEditingController();
   bool passToggle= true;
 
    @override
@@ -60,7 +61,7 @@ class  LoginBageState extends State<LoginBage> {
                     SizedBox(height:20),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      controller: Passcontoller,
+                      controller: Passwordcontoller,
                       obscureText: passToggle,
                       decoration: InputDecoration(
                         labelText: "password",
@@ -81,7 +82,7 @@ class  LoginBageState extends State<LoginBage> {
                         if (value!.isEmpty){
                           return 'Please enter password';
                         }
-                        else if(Passcontoller.text.length < 6){
+                        else if(Passwordcontoller.text.length < 6){
                           return'Password must be atleast six characters long.';
                         }
                       },
@@ -90,6 +91,8 @@ class  LoginBageState extends State<LoginBage> {
                     InkWell(
                       onTap: ()  async {
                         if(_loginbage.currentState!.validate()){
+                        bool result= await  fireBaseLogin( emailcontroller.text,Passwordcontoller.text );
+                        if(result == true){
                           final SharedPreferences prefs = await SharedPreferences.getInstance();
                           await prefs.setString('email', emailcontroller.text);
                           Navigator.push(
@@ -100,12 +103,15 @@ class  LoginBageState extends State<LoginBage> {
                               )
                             ),
                           );
+                        }
+                        else{
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content:Text("success"), 
+                              content:Text("Login faild"), 
                           ),
                           
                           );
+                        }
                         }
                       },
                       
@@ -154,5 +160,22 @@ class  LoginBageState extends State<LoginBage> {
         ),
       );
   }
-       
+      Future<bool> fireBaseLogin(String email ,String password) async {
+        try {
+  UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: email,
+    password: password,
+  );
+    if  (userCredential.user !=null){
+      return true;
+    }
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'user-not-found') {
+    print('No user found for that email.');
+  } else if (e.code == 'wrong-password') {
+    print('Wrong password provided for that user.');
+  }
+    }
+      return false;
+  } 
 }
