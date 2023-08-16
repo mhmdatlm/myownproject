@@ -7,14 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 
-class LoginBage extends StatefulWidget {
-  const LoginBage({super.key});
+class Loginpage extends StatefulWidget {
+  const Loginpage({super.key});
 
   @override
-  State<LoginBage> createState() =>  LoginBageState();
+  State<Loginpage> createState() =>  LoginpageState();
 }
 
-class  LoginBageState extends State<LoginBage> { 
+class  LoginpageState extends State<Loginpage> { 
  
   final _loginbage =GlobalKey<FormState>();
   final emailcontroller = TextEditingController();

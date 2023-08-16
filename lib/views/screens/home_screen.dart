@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/views/screens/page1.dart';
 import 'package:flutter_application_1/views/screens/page2.dart';
+import 'package:flutter_application_1/views/screens/page3.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,8 @@ class HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> pages= [
     Page1(),
-    Page2()
+    Page2(),
+    Page3()
     
   ];
 
